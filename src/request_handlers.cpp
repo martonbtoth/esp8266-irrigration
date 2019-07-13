@@ -7,13 +7,14 @@
 const char* PARAM_MESSAGE = "message";
 
 void notFound(AsyncWebServerRequest *request) {
-    request->send(404, "text/plain", "Not found");
+    request->send(SPIFFS, "/404.html", "text/html");
 }
 
-void registerHandlers(AsyncWebServer server) {
+void registerHandlers(AsyncWebServer& server) {
 
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(200, "text/plain", "Hello, world");
+    server.on("/", HTTP_GET, [] (AsyncWebServerRequest *request) {
+        Serial.println("Handlig get request");
+        request->send(SPIFFS, "/index.html", "text/html");
     });
 
     // Send a GET request to <IP>/get?message=<message>
