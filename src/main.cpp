@@ -12,6 +12,8 @@ const char* ssid = "Ciclak";
 const char* password = "wifijelszo";
 
 void setup() {
+  pinMode(D8, OUTPUT);
+
   Serial.begin(9600);
   delay(200);
 
@@ -35,16 +37,18 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
 
-  if (!MDNS.begin("esp8266")) {
+  if (!MDNS.begin("esp8266", WiFi.localIP(), 1800)) {
     Serial.println("Error setting up MDNS responder!");
   }
   Serial.println("mDNS responder started");
 
   registerHandlers(server);
   Serial.println("Registered http handlers");
-
+  digitalWrite(D8, HIGH);
   server.begin();
 }
 
 void loop() {
+  MDNS.update();
+  delay(5000);
 }
