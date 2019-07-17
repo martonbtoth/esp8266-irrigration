@@ -25,7 +25,7 @@ void registerHandlers(AsyncWebServer& server) {
     });
 
     server.on("/status", HTTP_GET, [] (AsyncWebServerRequest *request) {
-        int status = digitalRead(D8);
+        int status = digitalRead(valvePin);
         if (status == LOW) {
             request->send(200, "text/plain", "on");
         } else {
@@ -34,12 +34,12 @@ void registerHandlers(AsyncWebServer& server) {
     });
 
     server.on("/on", HTTP_POST, [] (AsyncWebServerRequest *request) {
-        digitalWrite(D8, LOW);
+        digitalWrite(valvePin, LOW);
         request->send(200, "text/plain", "On yo");
     });
 
     server.on("/off", HTTP_POST, [] (AsyncWebServerRequest *request) {
-        digitalWrite(D8, HIGH);
+        digitalWrite(valvePin, HIGH);
         request->send(200, "text/plain", "Off yo");
     });
 
