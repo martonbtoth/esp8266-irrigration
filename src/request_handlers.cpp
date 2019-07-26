@@ -3,6 +3,8 @@
 #include <ESPAsyncTCP.h>
 
 #include "request_handlers.hpp"
+#include "state.hpp"
+#include "display.hpp"
 
 const char* PARAM_MESSAGE = "message";
 
@@ -26,7 +28,7 @@ void registerHandlers(AsyncWebServer& server) {
 
     server.on("/status", HTTP_GET, [] (AsyncWebServerRequest *request) {
         int status = digitalRead(valvePin);
-        if (status == LOW) {
+        if (state.valveOpen) {
             request->send(200, "text/plain", "on");
         } else {
             request->send(200, "text/plain", "off");
@@ -35,11 +37,15 @@ void registerHandlers(AsyncWebServer& server) {
 
     server.on("/on", HTTP_POST, [] (AsyncWebServerRequest *request) {
         digitalWrite(valvePin, LOW);
+        state.valveOpen = true;
+        state.dirty = true;
         request->send(200, "text/plain", "On yo");
     });
 
     server.on("/off", HTTP_POST, [] (AsyncWebServerRequest *request) {
         digitalWrite(valvePin, HIGH);
+        state.valveOpen = false;
+        state.dirty = true;
         request->send(200, "text/plain", "Off yo");
     });
 

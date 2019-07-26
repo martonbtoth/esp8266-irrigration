@@ -5,6 +5,8 @@
 #include <ESP8266mDNS.h>
 #include <FS.h>
 #include "request_handlers.hpp"
+#include "display.hpp"
+#include "state.hpp"
 
 AsyncWebServer server(80);
 
@@ -16,8 +18,11 @@ void setup() {
 
   Serial.begin(9600);
   delay(200);
-
+  Serial.println();
   Serial.println("Starting up");
+
+  Serial.println("Initializing display");
+  initDisplay();
 
   Serial.println("Starting SPIFFS");
   SPIFFS.begin();
@@ -36,6 +41,7 @@ void setup() {
 
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
+  displayData();
 
   if (!MDNS.begin("esp8266-dev", WiFi.localIP(), 1800)) {
     Serial.println("Error setting up MDNS responder!");
@@ -49,6 +55,9 @@ void setup() {
 }
 
 void loop() {
-  MDNS.update();
-  delay(5000);
+  if (state.dirty) {
+    state.dirty = false;
+    displayData();
+  }
+  delay(200);
 }
