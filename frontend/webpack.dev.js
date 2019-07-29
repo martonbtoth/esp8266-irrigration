@@ -8,13 +8,13 @@ module.exports = merge(common, {
         contentBase: './dist',
         proxy: {
             "/status": {
-                target: "http://192.168.30.40/status"
+                target: "http://192.168.30.39/status"
             },
             "/off": {
-                target: "http://192.168.30.40/off"
+                target: "http://192.168.30.39/off"
             },
             "/on": {
-                target: "http://192.168.30.40/on"
+                target: "http://192.168.30.39/on"
             }
         }
     }

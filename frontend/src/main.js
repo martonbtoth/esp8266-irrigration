@@ -1,29 +1,8 @@
-(function () {
-    var button = document.querySelector("#button");
-    var state = null;
-    
-    function refresh() {
-        fetch("/status").then(function(response) {
-            return response.text();
-        }).then(function (text) {
-            state = text;
-            document.querySelector("#status").textContent = state;
-            if (state === 'on') {
-                button.textContent = "Turn off"
-            } else {
-                button.textContent = "Turn on"
-            }
-        });
-    }
+import {h, render} from 'preact'
+import App from './components/App'
 
-    button.addEventListener('click', function () {
-        if (state === 'on') {
-            fetch('/off', {method: 'post'}).then(refresh);
-        } else {
-            fetch('/on', {method: 'post'}).then(refresh);
-        }
-    });
-    
-    refresh();
-    
-})()
+let root;
+
+(() => {
+   root = render(<App />, document.body, root);
+})();
