@@ -1,0 +1,63 @@
+.sun {
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg) scale(0.8);
+        }
+        50% {
+            transform: rotate(180deg) scale(1.1);
+        }
+        100% {
+            transform: rotate(360deg) scale(0.8);
+        }
+    }
+    
+    $size: 100px;
+    $star-size: $size * 1.4;
+
+    position: relative;
+    width: $star-size * 1.2;
+    height: $star-size * 1.2;
+
+
+    &-body {
+        position: absolute;
+        height: $size;
+        width: $size;
+        left: ($star-size - $size) / 2;
+        top: ($star-size - $size) / 2;
+
+        background-color: #FCD440;
+        border-radius: $size/2;
+        filter: blur(4px);
+    }
+
+    @mixin ray($animation, $color, $duration) {
+        position: absolute;
+        height: $star-size;
+        width: $star-size;
+
+        animation-name: $animation;
+
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+
+        animation-duration: $duration; 
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        
+        background-color: $color;
+    }
+
+    &-ray-1 {
+        @include ray(rotate, #ebbe09, 12s);
+    }
+
+    &-ray-2 {
+        @include ray(rotate, #f2ac13, 16s);
+        animation-direction: reverse;
+    }
+
+    &-ray-3 {
+        @include ray(rotate, #f2ac13, 16s);
+    }
+}
