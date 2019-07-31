@@ -13,7 +13,7 @@ void notFound(AsyncWebServerRequest *request) {
 }
 
 void registerHandlers(AsyncWebServer& server) {
-    server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
+    server.serveStatic("/", SPIFFS, "/frontend").setDefaultFile("index.html");
 
     // Send a GET request to <IP>/get?message=<message>
     server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
