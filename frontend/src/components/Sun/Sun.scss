@@ -19,7 +19,6 @@
     width: $star-size * 1.2;
     height: $star-size * 1.2;
 
-
     &-body {
         position: absolute;
         height: $size;
@@ -40,6 +39,7 @@
         animation-name: $animation;
 
         clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 
         animation-duration: $duration; 
         animation-iteration-count: infinite;
