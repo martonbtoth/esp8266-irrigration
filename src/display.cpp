@@ -21,12 +21,9 @@ Ticker timer;
 
 unsigned long debounceTimer;
 
-void handleTimerInterrupt() {
-    state.displayDimmed = true;
-    state.dirty = true;
-}
+void ICACHE_RAM_ATTR handleTimerInterrupt();
 
-void handleButtonPress() {
+void ICACHE_RAM_ATTR handleButtonPress() {
     if ((millis() - debounceTimer) < 200) {
         return;
     }
@@ -79,4 +76,9 @@ void displayData() {
   display.printf("State: %s", state.valveOpen ? "on" : "off");
 
   display.display();
+}
+
+void handleTimerInterrupt() {
+    state.displayDimmed = true;
+    state.dirty = true;
 }
